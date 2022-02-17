@@ -1,8 +1,8 @@
-LABEL org.opencontainers.image.source=https://github.com/abates/nautobot-container
 
 ARG NAUTOBOT_VER=1.2.5
 ARG PYTHON_VER=3.8
 FROM ghcr.io/nautobot/nautobot:${NAUTOBOT_VER}-py${PYTHON_VER}
+LABEL org.opencontainers.image.source=https://github.com/abates/nautobot-container
 
 ARG BUILDPLATFORM
 ARG TARGETARCH=x86_64
