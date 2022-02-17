@@ -28,4 +28,5 @@ jobs:
       - name: 'Build:dockerimage'
         uses: docker/build-push-action@v2
         with:
+          push: true
           tags: ghcr.io/abates/nautobot:latest
