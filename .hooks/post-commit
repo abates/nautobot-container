@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+if [ -e drawings/.commit ] ; then
+    rm drawings/.commit
+    git add drawings/*.png
+    git commit --amend -C HEAD --no-verify
+fi
+
+if [ -e .commit-readme ] ; then
+    rm .commit-readme
+    git add README.md
+    git commit --amend -C HEAD --no-verify
+fi

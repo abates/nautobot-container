@@ -1,0 +1,6 @@
+#!/command/with-contenv bash
+
+export PATH=$S6_GLOBAL_PATH
+s6-setuidgid nautobot nautobot-server celery worker -l $NAUTOBOT_LOG_LEVEL | while read line ; do
+  echo "celery-worker: $line"
+done

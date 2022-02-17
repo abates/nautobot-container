@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+
+if git diff --cached --name-only | grep --quiet "drawings/.*\.drawio"; then
+	.hooks/export-drawio.py
+	touch drawings/.commit
+fi
+
+
+if git diff --cached --name-only | grep --quiet -P "^(config/)|(requests/)|(policies/)"; then
+	.hooks/update-readme.py
+	touch .commit-readme
+fi
+
+
