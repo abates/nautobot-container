@@ -28,7 +28,4 @@ jobs:
       - name: 'Build:dockerimage'
         uses: docker/build-push-action@v2
         with:
-          #registry: ghcr.io
-          #username: "abates"
-          #password: ${{ secrets.GHCR }}
           tags: ghcr.io/abates/nautobot:latest
