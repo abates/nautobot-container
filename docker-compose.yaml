@@ -20,7 +20,7 @@ services:
     env_file:
       - ".env"
   nautobot:
-    image: "abates-nautobot"
+    image: "ghcr.io/abates/nautobot"
     ports: 
       - "8080:8080"
     env_file:

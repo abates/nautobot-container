@@ -1,3 +1,6 @@
 export PATH "/command:/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 export HOME "/opt/nautobot"
-s6-setuidgid nautobot /docker-entrypoint.sh /install_plugins.sh
+# make sure importing doesn't blow up, pretty sure
+# this is a bug in the importer
+cd /opt/nautobot
+s6-setuidgid nautobot /docker-entrypoint.sh

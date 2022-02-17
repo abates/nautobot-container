@@ -2,6 +2,7 @@
 
 set -e
 
+cd /opt/nautobot
 if [[ -e /opt/nautobot/plugin_requirements.txt ]] ; then
   echo "Setting up Nautobot plugins"
   pip install -r /opt/nautobot/plugin_requirements.txt
