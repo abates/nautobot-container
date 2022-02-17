@@ -25,7 +25,7 @@ def main():
         "nautobot_superuser_name": input("Superuser login (admin): ") or "admin",
         "nautobot_superuser_email": input("Superuser email (admin@example.com): ") or "admin@example.com",
         "nautobot_superuser_password": password_input("Superuser password: "),
-        "nautobot_superuser_api_token": secrets.token_urlsafe(),
+        "nautobot_superuser_api_token": secrets.token_urlsafe()[:40],
         "nautobot_secret_key": secrets.token_urlsafe(),
         "db_password": secrets.token_urlsafe(),
         "redis_password": secrets.token_urlsafe(),
