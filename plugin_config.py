@@ -1,0 +1,2 @@
+PLUGINS = []
+PLUGINS_CONFIG = {}

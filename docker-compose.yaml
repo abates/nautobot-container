@@ -26,6 +26,7 @@ services:
     env_file:
       - ".env"
     volumes:
+      - "./plugin_config.py:/opt/nautobot/plugin_config.py"
       - "./plugin_requirements.txt:/opt/nautobot/plugin_requirements.txt"
       - "nautobot_data:/var/lib/nautobot"
     depends_on:

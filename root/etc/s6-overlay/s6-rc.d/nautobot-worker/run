@@ -1,6 +1,9 @@
 #!/command/with-contenv bash
 
 export PATH=$S6_GLOBAL_PATH
+# make sure importing doesn't blow up, pretty sure
+# this is a bug in the importer
+cd /opt/nautobot
 s6-setuidgid nautobot nautobot-server rqworker | while read line ; do
   echo "nautobot-worker: $line"
 done
