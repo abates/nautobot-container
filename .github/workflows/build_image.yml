@@ -29,5 +29,5 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          platforms: linux/x86_64,linux/arm
+          platforms: linux/x86_64
           tags: ghcr.io/abates/nautobot:latest
