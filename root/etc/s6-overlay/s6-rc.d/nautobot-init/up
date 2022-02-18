@@ -1,6 +1,20 @@
 export PATH "/command:/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 export HOME "/opt/nautobot"
-# make sure importing doesn't blow up, pretty sure
-# this is a bug in the importer
-cd /opt/nautobot
-s6-setuidgid nautobot /docker-entrypoint.sh
+
+# install plugin files
+foreground { /usr/local/bin/pip install -r /opt/nautobot/plugin_requirements.txt }
+
+# drop privileges
+foreground { s6-setuidgid nautobot
+  # run entrypoint which will bootstrap the image
+  # if it hasn't already been done
+  /docker-entrypoint.sh echo "Nautobot bootstrap complete"
+}
+
+# modify nautobot_config.py to auto-load plugin configs
+foreground { /update_nautobot_config.sh }
+
+# run post_upgrade in case any plugins were
+# previously installed
+/usr/local/bin/nautobot-server post_upgrade
+

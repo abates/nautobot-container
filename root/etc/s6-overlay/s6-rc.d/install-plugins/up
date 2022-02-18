@@ -1,6 +1,0 @@
-export PATH "/command:/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
-export HOME "/opt/nautobot"
-# make sure importing doesn't blow up, pretty sure
-# this is a bug in the importer
-cd /opt/nautobot
-/install_plugins.sh

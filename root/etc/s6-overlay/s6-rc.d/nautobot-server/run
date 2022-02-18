@@ -2,9 +2,6 @@
 
 echo "Starting Nautobot Server"
 export PATH=$S6_GLOBAL_PATH
-# make sure importing doesn't blow up, pretty sure
-# this is a bug in the importer
-cd /opt/nautobot
 s6-setuidgid nautobot nautobot-server start --ini /opt/nautobot/uwsgi.ini 2>&1 | while read line ; do
   echo "nautobot-server: $line"
   if [[ $line == "spawned uWSGI http 1"* ]] ; then
