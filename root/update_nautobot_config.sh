@@ -2,9 +2,9 @@
 
 set -e
 
-if [[ -e /opt/nautobot/plugin_config.py ]] ; then
-  if ! grep -q "from plugin_config import *" /opt/nautobot/nautobot_config.py ; then
-    tee -a /opt/nautobot/nautobot_config.py << END
+echo "Updating nautobot_config"
+if ! grep -q "from plugin_config import *" /opt/nautobot/nautobot_config.py ; then
+  cat >> /opt/nautobot/nautobot_config.py <<END
 
 plugin_file = os.path.join(NAUTOBOT_ROOT, "plugin_config.py")
 if os.path.exists(plugin_file):
@@ -20,5 +20,4 @@ if os.path.exists(plugin_file):
     if logger:
       logger.warning("Failed to load plugins: %s", e)
 END
-  fi
 fi
