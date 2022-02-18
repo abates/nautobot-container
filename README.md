@@ -26,3 +26,19 @@ Configuring plugins is similar to installing them.  Map the file
 Add plugins and their configs in this file as outlined in the Nautobot
 documentation.
 
+For example the plugin_config.py could look like this:
+```python
+PLUGINS = [
+    'plugin_name',
+]
+
+PLUGINS_CONFIG = {
+    'plugin_name': {
+        'foo': 'bar',
+        'buzz': 'bazz'
+    }
+}
+```
+
+The config loading code only loads PLUGINS and PLUGINS_CONFIG, no other configuration
+settings will be updated from plugin_config.py
