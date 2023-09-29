@@ -58,9 +58,13 @@ COPY --from=nautobot-dev /tmp/dist /tmp/dist
 COPY --from=nautobot-dev /opt/nautobot /opt/nautobot
 # COPY ./packages /source/packages
 
+# RUN grep -v /source/plugins /tmp/dist/requirements.txt > /tmp/dist/new_requirements.txt && \
+#    pip install -r /tmp/dist/new_requirements.txt && \
+#    pip install /tmp/dist/*.whl && \
+#    rm -rf /source /tmp/dist && \
+#    chown -R nautobot:nautobot /opt/nautobot
 RUN grep -v /source/plugins /tmp/dist/requirements.txt > /tmp/dist/new_requirements.txt && \
     pip install -r /tmp/dist/new_requirements.txt && \
-    pip install /tmp/dist/*.whl && \
     rm -rf /source /tmp/dist && \
     chown -R nautobot:nautobot /opt/nautobot
 
