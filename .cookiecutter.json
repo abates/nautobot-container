@@ -1,0 +1,21 @@
+{
+    "cookiecutter": {
+        "codeowner_github_usernames": "@abates",
+        "customer_name": "Andrew Bates",
+        "customer_slug": "andrew-bates",
+        "customer_python": "andrew_bates",
+        "customer_camel": "AndrewBates",
+        "project_slug": "nautobot-andrew-bates",
+        "project_python": "nautobot_andrew_bates",
+        "camel_name": "NautobotAndrewBates",
+        "github_org": "abates",
+        "repo_url": "https://github.com/abates/nautobot-image",
+        "nautobot_version": "1.6",
+        "version": "0.1.1",
+        "production_environment": "Docker Compose",
+        "_template": "cookiecutter-ntc/nautobot",
+        "_output_dir": "/home/abates/local/devel",
+        "_repo_dir": "cookiecutter-ntc/nautobot",
+        "_checkout": null
+    }
+}

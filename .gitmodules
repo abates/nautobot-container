@@ -1,0 +1,3 @@
+[submodule "nautobot-plugin-firewall-models"]
+	path = docker/nautobot-plugin-firewall-models
+	url = git@github.com:networktocode-llc/nautobot-plugin-firewall-models
