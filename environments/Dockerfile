@@ -34,7 +34,8 @@ RUN cd /source && \
 # -------------------------------------------------------------------------------------
 # Install all included plugins
 # -------------------------------------------------------------------------------------
-RUN for plugin in /source/plugins/*; do \
+RUN ls /source/plugins/* 2>/dev/null | while read plugin ; do \
+    # for plugin in "$plugins"; do \
         cd $plugin && \
         poetry build && \
         cp dist/*.whl /tmp/dist; \
@@ -58,13 +59,9 @@ COPY --from=nautobot-dev /tmp/dist /tmp/dist
 COPY --from=nautobot-dev /opt/nautobot /opt/nautobot
 # COPY ./packages /source/packages
 
-# RUN grep -v /source/plugins /tmp/dist/requirements.txt > /tmp/dist/new_requirements.txt && \
-#    pip install -r /tmp/dist/new_requirements.txt && \
-#    pip install /tmp/dist/*.whl && \
-#    rm -rf /source /tmp/dist && \
-#    chown -R nautobot:nautobot /opt/nautobot
 RUN grep -v /source/plugins /tmp/dist/requirements.txt > /tmp/dist/new_requirements.txt && \
     pip install -r /tmp/dist/new_requirements.txt && \
+    if [ -n "$(ls /tmp/dist/*.whl 2>/dev/null)" ] ; then pip install /tmp/dist/*.whl ; fi && \
     rm -rf /source /tmp/dist && \
     chown -R nautobot:nautobot /opt/nautobot
 
