@@ -4,18 +4,15 @@ on:
   push:
     branches: ["main"]
 
-permissions:
-  contents: write
-
 env:
   REGISTRY: "ghcr.io"
   IMAGE_NAME: "${{ github.repository }}"
 
 jobs:
-  build-and-push-image:
+  tag-main-branch:
     runs-on: "ubuntu-latest"
     permissions:
-      contents: "read"
+      contents: "write"
       packages: "write"
     steps:
       - name: "Chekout repository"
@@ -27,22 +24,13 @@ jobs:
           echo "GITHUB_NAUTOBOT_VERSION=$(poetry show nautobot | grep 'version' | awk '{print $3}')" >> $GITHUB_ENV
           echo "GITHUB_PROJECT_VERSION=$(poetry version -s)" >> $GITHUB_ENV
           echo "GITHUB_NEW_TAG=v$(poetry version -s)" >> $GITHUB_ENV
-          echo "GITHUB_LATEST_TAG=$(git describe --tags `git rev-list --tags --max-count=1`)" >> $GITHUB_ENV
-      - name: "Validate Tag"
-        if: "${{ env.GITHUB_PROJECT_VERSION == env.GITHUB_LATEST_TAG }}"
-        uses: "actions/github-script@v3"
-        with:
-          script: "core.setFailed('Project version number and latest tag are the same')"
-
-      - name: "Validate Version Numbers"
-        if: "${{ env.GITHUB_NAUTOBOT_VERSION != env.GITHUB_PROJECT_VERSION }}"
-        uses: "actions/github-script@v3"
-        with:
-          script: "core.setFailed('Project version number and Nautobot version number differ')"
+          echo "GITHUB_LATEST_TAG=$(git describe --tags `git rev-list --tags --max-count=1` 2>/dev/null || echo)" >> $GITHUB_ENV
+          cat $GITHUB_ENV
       - name: "Add Tag"
+        if: "${{ env.GITHUB_PROJECT_VERSION != env.GITHUB_LATEST_TAG && env.GITHUB_NAUTOBOT_VERSION == env.GITHUB_PROJECT_VERSION }}"
         run: |
-          git config --global user.name "Andrew Bates"
-          git config --global user.email "358901+abates@users.noreply.github.com"
-          git tag -a $GITHUB_NEW_TAG -m "Version $GITHUB_PROJECT_VERSION"
+          git config --global user.name "${GITHUB_ACTOR}"
+          git config --global user.email "${GITHUB_ACTOR}@users.noreply.github.com"
+          git tag "$GITHUB_NEW_TAG"
           git push origin $GITHUB_NEW_TAG
 
