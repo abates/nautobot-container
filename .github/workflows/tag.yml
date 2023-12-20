@@ -32,7 +32,7 @@ jobs:
           script: "core.setFailed('Project version number and latest tag are the same')"
 
       - name: "Validate Version Numbers"
-        if: "${{ GITHUB_NAUTOBOT_VERSION != GITHUB_PROJECT_VERSION }}"
+        if: "${{ env.GITHUB_NAUTOBOT_VERSION != env.GITHUB_PROJECT_VERSION }}"
         uses: "actions/github-script@v3"
         with:
           script: "core.setFailed('Project version number and Nautobot version number differ')"
