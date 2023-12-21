@@ -22,15 +22,10 @@ services:
     volumes:
       - "../docs:/source/docs:ro"
       - "../mkdocs.yml:/source/mkdocs.yml:ro"
-    image: "andrew-bates/nautobot-andrew-bates-dev:local"
+    image: "${BASE_IMAGE}:${BASE_TAG}"
     healthcheck:
       disable: true
     tty: true
-  # rq-worker:
-  #   volumes:
-  #     - "../nautobot_config.py:/opt/nautobot/nautobot_config.py"
-  #     - "../:/source"
-  #     - "../jobs:/opt/nautobot/jobs"
   worker:
     entrypoint:
       - "sh"
@@ -43,11 +38,3 @@ services:
     healthcheck:
       test: ["CMD", "true"]  # Due to layering, disable: true won't work. Instead, change the test
 
-# To expose postgres or redis to the host uncomment the following (note the port will be exposed on a rondom port
-# on the host see docker port {container name} for more information)
-# postgres:
-#   ports:
-#     - "5432"
-# redis:
-#   ports:
-#     - "6379"

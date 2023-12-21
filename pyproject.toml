@@ -1,12 +1,12 @@
 [tool.poetry]
 name = "nautobot-container"
-version = "1.6.7"
+version = "2.0.6"
 description = ""
 authors = ["Andrew Bates <abates@omeganetserv.com>"]
 
 [tool.poetry.dependencies]
 python = ">=3.8,<3.12"
-nautobot = "^1.6"
+nautobot = "^2.0"
 # NOTE: There is a bug in Markdown v3.3.5 that crashes Poetry
 Markdown = "^3.3.6"
 

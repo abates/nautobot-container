@@ -1,5 +1,5 @@
-ARG NAUTOBOT_VERSION=1.6
-ARG PYTHON_VER=3.11
+ARG NAUTOBOT_VERSION
+ARG PYTHON_VER
 FROM ghcr.io/nautobot/nautobot:${NAUTOBOT_VERSION}-py${PYTHON_VER} as nautobot-base
 
 USER 0
@@ -12,8 +12,6 @@ RUN apt-get update && \
     pip --no-cache-dir install --upgrade pip wheel
 
 FROM ghcr.io/nautobot/nautobot-dev:${NAUTOBOT_VERSION}-py${PYTHON_VER} as nautobot-dev
-
-CMD ["nautobot-server", "runserver", "0.0.0.0:8080", "--insecure"]
 
 RUN apt-get update && \
     apt-get upgrade -y && \
