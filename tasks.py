@@ -3,7 +3,7 @@ from distutils.util import strtobool
 from time import sleep
 import os
 import requests
-import toml
+import subprocess
 from invoke import Collection, task as invoke_task
 from invoke.exceptions import Exit
 
@@ -30,20 +30,22 @@ namespace.configure(
     {
         "nautobot": {
             "project_name": "nautobot",
-            "python_ver": "3.10",
+            "base_image": "ghcr.io/abates/nautobot-container",
+            "python_ver": "3.11",
             "local": False,
             "use_django_extensions": True,
             "compose_dir": os.path.join(os.path.dirname(__file__), "environments/"),
-            "compose_files": ["docker-compose.requirements.yml", "docker-compose.base.yml", "docker-compose.dev.yml"],
+            "compose_files": ["docker-compose.requirements.yml", "docker-compose.base.yml", "docker-compose.dev-prod.yml"],
         }
     }
 )
 
-with open("pyproject.toml", "r", encoding="utf8") as pyproject:
-    parsed_toml = toml.load(pyproject)
-
-NAUTOBOT_VERSION = parsed_toml["tool"]["poetry"]["dependencies"]["nautobot"]
-
+output = subprocess.check_output("poetry show nautobot", shell=True).decode("utf-8")
+for line in output.splitlines():
+    line = line.strip()
+    if line.startswith("version"):
+        NAUTOBOT_VERSION = line.split()[2]
+        break
 
 def task(function=None, *args, **kwargs):  # pylint: disable=keyword-arg-before-vararg
     """Task decorator to override the default Invoke task decorator."""
@@ -72,7 +74,12 @@ def docker_compose(context, command, **kwargs):
         command (str): Command string to append to the "docker-compose ..." command, such as "build", "up", etc.
         **kwargs: Passed through to the context.run() call.
     """
-    compose_env = {"PYTHON_VER": context.nautobot.python_ver, "NAUTOBOT_VERSION": NAUTOBOT_VERSION}
+    compose_env = {
+        "BASE_IMAGE": context.nautobot.base_image,
+        "BASE_TAG": NAUTOBOT_VERSION,
+        "NAUTOBOT_VERSION": NAUTOBOT_VERSION,
+        "PYTHON_VER": context.nautobot.python_ver,
+    }
     compose_command = f'docker-compose --project-name {context.nautobot.project_name} --project-directory "{context.nautobot.compose_dir}"'
     for compose_file in context.nautobot.compose_files:
         compose_file_path = os.path.join(context.nautobot.compose_dir, compose_file)

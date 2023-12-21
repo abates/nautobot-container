@@ -4,20 +4,15 @@ services:
   nautobot:
     build:
       target: "nautobot"
-    image: "andrew-bates/nautobot-andrew-bates:local"
+    image: "${BASE_IMAGE}:${BASE_TAG}"
     ports:
       - "8080:8080"
       - "8443:8443"
     env_file:
       - "./production.env"
       - "./creds.env"
-  # rq-worker:
-  #   image: "andrew-bates/nautobot-andrew-bates:local"
-  #   env_file:
-  #     - "./production.env"
-  #     - "./creds.env"
   worker:
-    image: "andrew-bates/nautobot-andrew-bates:local"
+    image: "${BASE_IMAGE}:${BASE_TAG}"
     env_file:
       - "./production.env"
       - "./creds.env"
