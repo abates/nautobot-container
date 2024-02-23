@@ -1846,13 +1846,13 @@ typing-extensions = ">=4.3.0"
 
 [[package]]
 name = "napalm-unifi"
-version = "0.2.0"
+version = "0.2.2"
 description = ""
 optional = false
 python-versions = ">=3.9,<4.0"
 files = [
-    {file = "napalm_unifi-0.2.0-py3-none-any.whl", hash = "sha256:5742b3ab06f95cc3e19f1e5b16b241918d506ea8e82d772290f778efb1b34783"},
-    {file = "napalm_unifi-0.2.0.tar.gz", hash = "sha256:dd0201c62515c0e325b92cf962f8a6fe4d478c58e0dcfaec54df96dc4663c5c7"},
+    {file = "napalm_unifi-0.2.2-py3-none-any.whl", hash = "sha256:b58293ef9f24c0292a6af9cf68cb5637777d325b3e608f9d5374d7009f68a03e"},
+    {file = "napalm_unifi-0.2.2.tar.gz", hash = "sha256:6859d61e5e6ec3d0b50687f60e7cc5495e5ae1f038a9467c7fe9c0746b176e19"},
 ]
 
 [package.dependencies]
