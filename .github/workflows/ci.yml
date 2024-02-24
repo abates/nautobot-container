@@ -28,7 +28,7 @@ jobs:
           echo "NEW_TAG=v$(poetry version -s)" >> $GITHUB_ENV
           echo "LATEST_TAG=$(git describe --tags `git rev-list --tags --max-count=1` 2>/dev/null || echo)" >> $GITHUB_ENV
       - name: "Add Tag"
-        if: "${{ env.NEW_TAG != env.LATEST_TAG && env.NAUTOBOT_VERSION == env.PROJECT_VERSION }}"
+        if: "${{ env.NEW_TAG != env.LATEST_TAG }}"
         run: |
           git config --global user.name "${GITHUB_ACTOR}"
           git config --global user.email "${GITHUB_ACTOR}@users.noreply.github.com"
