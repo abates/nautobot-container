@@ -32,6 +32,7 @@ RUN cd /source && \
 # -------------------------------------------------------------------------------------
 # Install all included plugins
 # -------------------------------------------------------------------------------------
+SHELL ["/bin/bash", "-c"]
 RUN ls /source/plugins/* 2>/dev/null | while read plugin ; do \
     # for plugin in "$plugins"; do \
         cd $plugin && \
@@ -39,6 +40,7 @@ RUN ls /source/plugins/* 2>/dev/null | while read plugin ; do \
         cp dist/*.whl /tmp/dist; \
     done
 
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 COPY ./jobs /opt/nautobot/jobs
 # COPY ./metrics /opt/nautobot/metrics
 COPY nautobot_config.py /opt/nautobot/nautobot_config.py
