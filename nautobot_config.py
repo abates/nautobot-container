@@ -132,8 +132,9 @@ CACHEOPS_REDIS = parse_redis_connection(redis_database=1)
 #
 
 # Enable installed plugins. Add the name of each plugin to the list.
-PLUGINS = ["nautobot_firewall_models"]
+PLUGINS = ["nautobot_firewall_models", "nautobot_ssot", "nautobot_ssot_unifi", "nautobot_design_builder"]
 
 # Plugins configuration settings. These settings are used by various plugins that the user may have installed.
 # Each key in the dictionary is the name of an installed plugin and its value is a dictionary of settings.
 PLUGINS_CONFIG = {}
+

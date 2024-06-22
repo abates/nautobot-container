@@ -1,16 +1,18 @@
 [tool.poetry]
 name = "nautobot-container"
-version = "2.2.2-2"
+version = "2.2.5"
 description = ""
 authors = ["Andrew Bates <abates@omeganetserv.com>"]
 
 [tool.poetry.dependencies]
-python = ">=3.9,<3.12"
+python = ">=3.11,<3.12"
 nautobot = "^2.2"
 # NOTE: There is a bug in Markdown v3.3.5 that crashes Poetry
 Markdown = "^3.3.6"
 napalm-unifi = "^0.2.0"
 nautobot-firewall-models = "^2.0.3"
+nautobot-ssot-unifi = "^1.0.0"
+nautobot-design-builder = "^2.0.0"
 
 [tool.poetry.dev-dependencies]
 bandit = "*"
