@@ -20,6 +20,9 @@ default_db_settings = {
     "django.db.backends.postgresql": {
         "NAUTOBOT_DB_PORT": "5432",
     },
+    "django_prometheus.db.backends.postgresql": {
+        "NAUTOBOT_DB_PORT": "5432",
+    },
     "django.db.backends.mysql": {
         "NAUTOBOT_DB_PORT": "3306",
     },
