@@ -1,8 +1,9 @@
 [tool.poetry]
-name = "nautobot-container"
-version = "2.2.5-1"
+name = "nautobot-deployment-tools"
+version = "2.2.5-2"
 description = ""
 authors = ["Andrew Bates <abates@omeganetserv.com>"]
+packages = [{include = "nautobot_deployment_tools"}]
 
 [tool.poetry.dependencies]
 python = ">=3.11,<3.12"
@@ -13,6 +14,7 @@ napalm-unifi = "^0.2.0"
 nautobot-firewall-models = "^2.0.3"
 nautobot-ssot-unifi = "^1.0.0"
 nautobot-design-builder = "^2.0.0"
+nautobot-golden-config = "^2.1.0"
 
 [tool.poetry.dev-dependencies]
 bandit = "*"

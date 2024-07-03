@@ -1,10 +1,6 @@
 
 # Nautobot
 
-# How to use this repo
-
-This repo is designed to provide a custom build of Nautobot to include a set of plugins which can then be used in a development environment or deployed in production.  Included in this repo is a skeleton Nautobot plugin which is designed only to provide a quick example of how a plugin could be developed.  Plugins should ultimately be built as packages, published to a pypi style repository and added to the poetry `pyproject.toml` in this repo.  The plugin code should be hosted in their own repositories with their own CI pipelines and not included here.
-
 ## Install Docker
 
 Before beginning, install Docker and verify its operation by running `docker run hello-world`. If you encounter any issues connecting to the Docker service, check that your local user account is permitted to run Docker. **Note:** `docker-compose` v1.20.0 or later is required.
@@ -15,7 +11,7 @@ You can build, deploy and populate Nautobot with the following steps
 1. `invoke build`
 2. `invoke start` or `invoke debug`
 
-Nautobot will be available on port 80 locally http://localhost
+Nautobot will be available on port 8080 locally http://localhost
 
 ## Cleanup Everything and start from scratch
 1. `invoke destroy`
@@ -51,7 +47,7 @@ The development environment can be used in 2 ways, first with inside a docker co
 
 ```shell
 ---
-nautobot_andrew_bates:
+nautobot:
   local: True
   compose_files:
     - "docker-compose.requirements.yml"

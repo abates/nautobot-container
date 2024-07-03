@@ -19,31 +19,28 @@ RUN apt-get update && \
     apt-get clean all && \
     rm -rf /var/lib/apt/lists/*
 
-COPY ./pyproject.toml ./poetry.lock /source/
-COPY ./plugins /source/plugins
-# COPY ./packages /source/packages
+COPY ./ /source/
 
 # Install the nautobot project to include Nautobot
 RUN cd /source && \
-    poetry install --no-interaction --no-ansi && \
+    poetry install --no-directory --no-interaction --no-ansi && \
     mkdir /tmp/dist && \
-    poetry export --without-hashes -o /tmp/dist/requirements.txt
+    poetry export --without-hashes -o /tmp/dist/requirements.txt && \
+    pip uninstall -y nautobot-container
 
 # -------------------------------------------------------------------------------------
-# Install all included plugins
+# Install tools
 # -------------------------------------------------------------------------------------
-SHELL ["/bin/bash", "-c"]
-RUN ls /source/plugins/* 2>/dev/null | while read plugin ; do \
-    # for plugin in "$plugins"; do \
-        cd $plugin && \
-        poetry build && \
-        cp dist/*.whl /tmp/dist; \
-    done
-
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
-COPY ./jobs /opt/nautobot/jobs
-# COPY ./metrics /opt/nautobot/metrics
+WORKDIR /source
+RUN rm -rf dist/ && \
+    poetry build && \
+    pip install dist/*.whl && \
+    cp dist/*.whl /tmp/dist
+
 COPY nautobot_config.py /opt/nautobot/nautobot_config.py
+COPY nautobot-deployment-entrypoint.sh /nautobot-deployment-entrypoint.sh
+ENTRYPOINT ["/nautobot-deployment-entrypoint.sh"]
 
 WORKDIR /source
 
@@ -59,10 +56,9 @@ COPY --from=nautobot-dev /tmp/dist /tmp/dist
 COPY --from=nautobot-dev /opt/nautobot /opt/nautobot
 # COPY ./packages /source/packages
 
-RUN grep -v /source/plugins /tmp/dist/requirements.txt > /tmp/dist/new_requirements.txt && \
-    pip install -r /tmp/dist/new_requirements.txt && \
+RUN pip install -r /tmp/dist/requirements.txt && \
     if [ -n "$(ls /tmp/dist/*.whl 2>/dev/null)" ] ; then pip install /tmp/dist/*.whl ; fi && \
-    rm -rf /source /tmp/dist && \
+    rm -rf /source && \
     chown -R nautobot:nautobot /opt/nautobot
 
 USER nautobot
