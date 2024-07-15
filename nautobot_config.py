@@ -182,12 +182,10 @@ PLUGINS_CONFIG = {
             "lstrip_blocks": False,
         },
     },
-    {
-        "nautobot_device_lifecycle_mgmt": {
-            "barchart_bar_width": float(os.environ.get("BARCHART_BAR_WIDTH", 0.1)),
-            "barchart_width": int(os.environ.get("BARCHART_WIDTH", 12)),
-            "barchart_height": int(os.environ.get("BARCHART_HEIGHT", 5)),
-        },
-    ,
+    "nautobot_device_lifecycle_mgmt": {
+        "barchart_bar_width": float(os.environ.get("BARCHART_BAR_WIDTH", 0.1)),
+        "barchart_width": int(os.environ.get("BARCHART_WIDTH", 12)),
+        "barchart_height": int(os.environ.get("BARCHART_HEIGHT", 5)),
+    },
 }
 
