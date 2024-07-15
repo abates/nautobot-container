@@ -143,6 +143,8 @@ PLUGINS = [
     "nautobot_design_builder",
     "nautobot_plugin_nornir",
     "nautobot_golden_config",
+    "nautobot_device_lifecycle_mgmt",
+    "nautobot_device_onboarding",
 ]
 
 # Plugins configuration settings. These settings are used by various plugins that the user may have installed.
@@ -180,5 +182,12 @@ PLUGINS_CONFIG = {
             "lstrip_blocks": False,
         },
     },
+    {
+        "nautobot_device_lifecycle_mgmt": {
+            "barchart_bar_width": float(os.environ.get("BARCHART_BAR_WIDTH", 0.1)),
+            "barchart_width": int(os.environ.get("BARCHART_WIDTH", 12)),
+            "barchart_height": int(os.environ.get("BARCHART_HEIGHT", 5)),
+        },
+    ,
 }
 
