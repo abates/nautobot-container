@@ -151,7 +151,7 @@ PLUGINS = [
 # Each key in the dictionary is the name of an installed plugin and its value is a dictionary of settings.
 PLUGINS_CONFIG = {
     "nautobot_plugin_nornir": {
-        "use_config_context": {"secrets": True}, 
+        # "use_config_context": {"secrets": True}, 
         "nornir_settings": {
             "credentials": "nautobot_plugin_nornir.plugins.credentials.nautobot_secrets.CredentialsNautobotSecrets",
             "runner": {
