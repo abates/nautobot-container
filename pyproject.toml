@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "nautobot-deployment-tools"
-version = "2.2.7-3"
+version = "2.3.3"
 description = ""
 authors = ["Andrew Bates <abates@omeganetserv.com>"]
 packages = [{include = "nautobot_deployment_tools"}]
@@ -14,9 +14,6 @@ napalm-unifi = "^0.2.0"
 nautobot-firewall-models = "^2.0.3"
 nautobot-ssot-unifi = "^1.0.0"
 nautobot-design-builder = "^2.0.0"
-nautobot-golden-config = "^2.1.0"
-nautobot-device-onboarding = {version = "^4.0.0rc2", allow-prereleases = true}
-nautobot-device-lifecycle-mgmt = "^2.1.1"
 
 [tool.poetry.dev-dependencies]
 bandit = "*"
