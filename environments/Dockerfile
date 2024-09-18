@@ -63,5 +63,6 @@ RUN pip install -r /tmp/dist/requirements.txt && \
 
 COPY nautobot-deployment-entrypoint.sh /nautobot-deployment-entrypoint.sh
 ENTRYPOINT ["/nautobot-deployment-entrypoint.sh"]
-    
+CMD ["nautobot-server", "start", "--ini", "/opt/nautobot/uwsgi.ini"]
+
 USER nautobot
