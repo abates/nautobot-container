@@ -80,12 +80,12 @@ def docker_compose(context, command, **kwargs):
         "NAUTOBOT_VERSION": NAUTOBOT_VERSION,
         "PYTHON_VER": context.nautobot.python_ver,
     }
-    compose_command = f'docker-compose --project-name {context.nautobot.project_name} --project-directory "{context.nautobot.compose_dir}"'
+    compose_command = f'docker compose --project-name {context.nautobot.project_name} --project-directory "{context.nautobot.compose_dir}"'
     for compose_file in context.nautobot.compose_files:
         compose_file_path = os.path.join(context.nautobot.compose_dir, compose_file)
         compose_command += f' -f "{compose_file_path}"'
     compose_command += f" {command}"
-    print(f'Running docker-compose command "{command}"')
+    print(f'Running docker compose command "{command}"')
     return context.run(compose_command, env=compose_env, **kwargs)
 
 
