@@ -4,7 +4,6 @@ import importlib
 import logging
 import os
 from os import path
-import subprocess
 import sys
 
 from nautobot.core.settings import *  # noqa: F403  # pylint: disable=wildcard-import,unused-wildcard-import
@@ -144,11 +143,6 @@ PLUGINS = []
 PLUGINS_CONFIG = {}
 
 plugin_config_path = path.join(path.dirname(__file__), "plugin_config.py")
-plugin_requirements_path = path.join(path.dirname(__file__), "plugin_requirements.txt")
-if path.exists(plugin_requirements_path):
-    logger.info("Installing plugin packages from %s", plugin_requirements_path)
-    subprocess.check_call([sys.executable, "-m", "pip", "install", "-r", plugin_requirements_path])
-
 if path.exists(plugin_config_path):
     logger.info("Loading plugin config %s", plugin_config_path)
 
