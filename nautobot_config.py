@@ -1,5 +1,7 @@
 """Nautobot development configuration file."""
 # pylint: disable=invalid-envvar-default
+import importlib
+import logging
 import os
 from os import path
 import subprocess
@@ -8,6 +10,9 @@ import sys
 from nautobot.core.settings import *  # noqa: F403  # pylint: disable=wildcard-import,unused-wildcard-import
 from nautobot.core.settings_funcs import parse_redis_connection, is_truthy
 
+logger = logging.getLogger(__name__)
+
+INSTALLATION_METRICS_ENABLED = False
 
 #
 # Misc. settings
