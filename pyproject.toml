@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "nautobot-deployment-tools"
-version = "2.4.7-1"
+version = "2.4.7-2"
 description = ""
 authors = ["Andrew Bates <abates@omeganetserv.com>"]
 packages = [{include = "nautobot_deployment_tools"}]
