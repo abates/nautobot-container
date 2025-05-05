@@ -162,3 +162,5 @@ if path.exists(plugin_config_path):
     except ImportError as ex:
         logger.error("Failed to load plugin config %s: %s", filename, ex)
 
+logger.flush()
+
