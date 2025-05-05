@@ -139,7 +139,7 @@ CACHEOPS_REDIS = parse_redis_connection(redis_database=1)
 # Celery settings are not defined here because they can be overloaded with
 # environment variables. By default they use `CACHES["default"]["LOCATION"]`.
 #
-PLUGINS = []
+PLUGINS = ["nautobot_deployment_tools"]
 PLUGINS_CONFIG = {}
 
 plugin_config_path = path.join(path.dirname(__file__), "plugin_config.py")
