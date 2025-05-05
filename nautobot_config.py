@@ -150,6 +150,11 @@ if path.exists(plugin_config_path):
         spec = importlib.util.spec_from_file_location("plugin_config", plugin_config_path)
         module = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(module)
+        if hasattr(module, "PLUGINS"):
+            PLUGINS.extend(module.PLUGINS)
+        else:
+            logger.warning("Plugin config file %s does not declare a PLUGINS list", filename)
+
         if hasattr(module, "PLUGINS_CONFIG"):
             PLUGINS_CONFIG.update(module.PLUGINS_CONFIG)
         else:
