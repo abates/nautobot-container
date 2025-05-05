@@ -1,6 +1,7 @@
 """Nautobot development configuration file."""
 # pylint: disable=invalid-envvar-default
 import os
+import subprocess
 import sys
 
 from nautobot.core.settings import *  # noqa: F403  # pylint: disable=wildcard-import,unused-wildcard-import
@@ -133,18 +134,26 @@ CACHEOPS_REDIS = parse_redis_connection(redis_database=1)
 # Celery settings are not defined here because they can be overloaded with
 # environment variables. By default they use `CACHES["default"]["LOCATION"]`.
 #
+PLUGINS = []
+PLUGINS_CONFIG = {}
 
-# Enable installed plugins. Add the name of each plugin to the list.
-PLUGINS = [
-    "nautobot_deployment_tools",
-    "nautobot_firewall_models",
-    "nautobot_ssot",
-    "nautobot_ssot_unifi",
-    "nautobot_design_builder",
-]
+plugin_config_path = path.join(path.dirname(__file__), "plugin_config.py")
+plugin_requirements_path = path.join(path.dirname(__file__), "plugin_requirements.txt")
+if path.exists(plugin_requirements_path):
+    logger.info("Installing plugin packages from %s", plugin_requirements_path)
+    subprocess.check_call([sys.executable, "-m", "pip", "install", "-r", plugin_requirements_path])
 
-# Plugins configuration settings. These settings are used by various plugins that the user may have installed.
-# Each key in the dictionary is the name of an installed plugin and its value is a dictionary of settings.
-PLUGINS_CONFIG = {
-}
+if path.exists(plugin_config_path):
+    logger.info("Loading plugin config %s", plugin_config_path)
+
+    try:
+        spec = importlib.util.spec_from_file_location("plugin_config", plugin_config_path)
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        if hasattr(module, "PLUGINS_CONFIG"):
+            PLUGINS_CONFIG.update(module.PLUGINS_CONFIG)
+        else:
+            logger.warning("Plugin config file %s does not declare a PLUGINS_CONFIG dictionary", filename)
+    except ImportError as ex:
+        logger.error("Failed to load plugin config %s: %s", filename, ex)
 
